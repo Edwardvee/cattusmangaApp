@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         imageid = mutableListOf()
         titlemanga = mutableListOf()
         var queue = Volley.newRequestQueue(this)
-        val url = "http://192.168.228.131/cattusmanga_plus/controllers/androidRequests/getMangas.php"
+        val url = "http://dasomnya.testing.et26.edu.ar/controllers/androidRequests/getMangas.php"
         var jsonObjectRequest= JsonObjectRequest(Request.Method.GET, url,null, {
             response->
             try {
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                 for(i in 0 until jsonArray.length()){
                     var jsonObject = jsonArray.getJSONObject(i)
                     titlemanga.add(jsonObject.getString("title"))
-                    imageid.add("http://192.168.228.131/cattusmanga_plus/mangas/"+ jsonObject.getString("ID")+ "/caratula.png")
+                    imageid.add("http://dasomnya.testing.et26.edu.ar/cattusmanga_plus/mangas/"+ jsonObject.getString("ID")+ "/caratula.png")
 
 
                 }
