@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                     var jsonObject = jsonArray.getJSONObject(i)
                     titlemanga.add(jsonObject.getString("title"))
                     imageid.add("http://192.168.228.131/cattusmanga_plus/mangas/"+ jsonObject.getString("ID")+ "/caratula.png")
-
+                    Log.d("pepe", jsonArray.getJSONObject(i).toString());
 
                 }
                 getUserData()
