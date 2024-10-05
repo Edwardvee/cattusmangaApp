@@ -12,7 +12,6 @@
         android:id="@+id/mangas"
         android:icon="@drawable/baseline_search_24"
         app:showAsAction="ifRoom"/>
-
     <item android:title="Cuenta"
         android:id="@+id/account"
         android:icon="@drawable/baseline_person_24"
