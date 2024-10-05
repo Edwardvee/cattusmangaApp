@@ -45,7 +45,7 @@ class Login : AppCompatActivity() {
     }
 
     private fun loginUser(username: String, password: String) {
-        val url = "http://192.168.228.131/cattusmanga_plus/controllers/androidRequests/login.php" // Cambia esta URL por la de tu servidor
+        val url = "http://192.168.56.1/quiroga/cattusmanga_plus/controllers/androidRequests/login.php" // Cambia esta URL por la de tu servidor
         val params = JSONObject()
         params.put("username", username)
         params.put("password", password)

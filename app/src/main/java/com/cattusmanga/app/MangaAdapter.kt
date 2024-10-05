@@ -29,8 +29,15 @@ class MangaAdapter (private val mangaList : ArrayList<Manga>) :
             .into(holder.image)
         holder.title.text = currentItem.title
     }
+    private fun goToMangaInfo(){
+
+    }
     class myViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val image : ImageView = itemView.findViewById(R.id.manga_img)
         val title : TextView = itemView.findViewById(R.id.manga_title)
+
+
     }
+
+
 }
