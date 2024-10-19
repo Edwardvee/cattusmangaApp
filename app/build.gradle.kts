@@ -43,6 +43,10 @@ android {
             }
         }
     }
+    buildFeatures{
+        dataBinding = true
+        viewBinding = true
+    }
 }
 
 dependencies {

@@ -1,6 +1,13 @@
 package com.cattusmanga.app
-import android.util.Log
+
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+
+import android.util.Log
+
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -17,25 +24,48 @@ import org.json.JSONArray
 import org.json.JSONException
 
 
-class Homepage : AppCompatActivity(){
+//private const val ARG_PARAM1 = "param1"
+//private const val ARG_PARAM2 = "param2"
 
-    private lateinit var newRecyclerView: RecyclerView
+
+class HomepageFragment : Fragment() {
+//
+//    private var param1: String? = null
+//    private var param2: String? = null
+private lateinit var newRecyclerView: RecyclerView
     private lateinit var newArrayList: ArrayList<Manga>
 
     private lateinit var imageid: MutableList<String>
     private lateinit var titlemanga: MutableList<String>
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        val view: View = inflater.inflate(R.layout.fragment_homepage, container, false)
+        return view
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.homepage)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+//        arguments?.let {
+//            param1 = it.getString(ARG_PARAM1)
+//            param2 = it.getString(ARG_PARAM2)
+//        }
+
+
+    }
+    private fun getUserData(){
+        for (i in imageid.indices){
+            val manga = Manga(imageid[i], titlemanga[i])
+            newArrayList.add(manga)
         }
+        newRecyclerView.adapter = MangaAdapter(newArrayList)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         imageid = mutableListOf()
         titlemanga = mutableListOf()
-        var queue = Volley.newRequestQueue(this)
+        var queue = Volley.newRequestQueue(this.context)
         val url =
             "http://192.168.56.1/quiroga/cattusmanga_plus/controllers/androidRequests/getMangas.php"
         var jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null, { response ->
@@ -58,19 +88,21 @@ class Homepage : AppCompatActivity(){
             }
         }, { error: VolleyError? -> })
         queue.add(jsonObjectRequest)
-        newRecyclerView = findViewById(R.id.recyclerview)
-        newRecyclerView.layoutManager = LinearLayoutManager(this)
-        newRecyclerView.setLayoutManager(GridLayoutManager(this, 3))
+        newRecyclerView = requireView().findViewById(R.id.recyclerview)
+        newRecyclerView.layoutManager = LinearLayoutManager(this.context)
+        newRecyclerView.setLayoutManager(GridLayoutManager(this.context, 3))
         newRecyclerView.setHasFixedSize(true)
         newArrayList = arrayListOf<Manga>()
-
     }
-    private fun getUserData(){
-        for (i in imageid.indices){
-            val manga = Manga(imageid[i], titlemanga[i])
-            newArrayList.add(manga)
-        }
-        newRecyclerView.adapter = MangaAdapter(newArrayList)
+    companion object {
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+           HomepageFragment()
+    //            .apply {
+//                arguments = Bundle().apply {
+//                    putString(ARG_PARAM1, param1)
+//                    putString(ARG_PARAM2, param2)
+//                }
+
     }
 }
-
