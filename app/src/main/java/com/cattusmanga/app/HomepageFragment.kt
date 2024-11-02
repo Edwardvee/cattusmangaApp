@@ -36,6 +36,7 @@ private lateinit var newRecyclerView: RecyclerView
     private lateinit var newArrayList: ArrayList<Manga>
 
     private lateinit var imageid: MutableList<String>
+    private lateinit var mangasid: MutableList<Int>
     private lateinit var titlemanga: MutableList<String>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,29 +54,47 @@ private lateinit var newRecyclerView: RecyclerView
 
 
     }
+    class DetailFragment : Fragment() {
+
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+
+            val mangaId = arguments?.getInt("mangaId") ?: 0
+            // Usa mangaId para cargar los detalles desde la base de datos
+        }
+    }
     private fun getUserData(){
         for (i in imageid.indices){
-            val manga = Manga(imageid[i], titlemanga[i])
+            val manga = Manga(imageid[i], titlemanga[i], mangasid[i])
             newArrayList.add(manga)
         }
-        newRecyclerView.adapter = MangaAdapter(newArrayList)
+        newRecyclerView.adapter = MangaAdapter(newArrayList){mangaId ->
+            val fragment =MangaRead()
+            fragment.arguments = Bundle().apply {
+                putInt("id", mangaId)
+            }
+            // Llama a replaceFragment en MainActivity
+            (activity as? MainActivity)?.replaceFragment(fragment) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         imageid = mutableListOf()
         titlemanga = mutableListOf()
+        mangasid = mutableListOf()
         var queue = Volley.newRequestQueue(this.context)
         val url =
-            "http://192.168.56.1/quiroga/cattusmanga_plus/controllers/androidRequests/getMangas.php"
+            "http://10.120.0.118/quiroga/cattusmanga_plus/controllers/androidRequests/getMangas.php"
         var jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             try {
                 val jsonArray = response.getJSONArray("data")
                 for (i in 0 until jsonArray.length()) {
                     var jsonObject = jsonArray.getJSONObject(i)
                     titlemanga.add(jsonObject.getString("title"))
+
+                    mangasid.add(jsonObject.getInt("ID"))
                     imageid.add(
-                        "http://192.168.56.1/quiroga/cattusmanga_plus/mangas/" + jsonObject.getString(
+                        "http://10.120.0.118/quiroga/cattusmanga_plus/mangas/" + jsonObject.getString(
                             "ID"
                         ) + "/caratula.png"
                     )

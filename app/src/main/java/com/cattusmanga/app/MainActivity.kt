@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         binding.navMenu.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.home -> replaceFragment(HomepageFragment())
+
                 R.id.account -> replaceFragment(LoginFragment())
                 else ->{
 
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             true
         }
  }
-    private fun replaceFragment(fragment: Fragment){
+     fun replaceFragment(fragment: Fragment){
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.FragmentLoader, fragment)

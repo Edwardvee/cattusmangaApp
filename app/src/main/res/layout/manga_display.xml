@@ -5,8 +5,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="8dp">
-
-
     <ImageView
         android:id="@+id/manga_img"
         android:layout_width="101dp"
@@ -14,7 +12,6 @@
         tools:layout_editor_absoluteX="-3dp"
         tools:layout_editor_absoluteY="-2dp"
         tools:srcCompat="@raw/image" />
-
     <TextView
         android:id="@+id/manga_title"
         android:layout_width="wrap_content"
@@ -26,6 +23,4 @@
         android:textFontWeight="500"
         app:layout_constraintTop_toBottomOf="@id/manga_img"
         tools:layout_editor_absoluteX="28dp" />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

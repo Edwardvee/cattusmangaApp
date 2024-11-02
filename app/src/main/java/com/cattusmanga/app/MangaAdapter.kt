@@ -8,16 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class MangaAdapter (private val mangaList : ArrayList<Manga>) :
+class MangaAdapter (private val mangaList : ArrayList<Manga>,  private val onItemClick: (Int) -> Unit) :
     RecyclerView.Adapter<MangaAdapter.myViewHolder>()
 {
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.manga_display, parent, false)
         return myViewHolder(itemView)
     }
-
     override fun getItemCount(): Int {
         return mangaList.size
     }
@@ -28,6 +26,10 @@ class MangaAdapter (private val mangaList : ArrayList<Manga>) :
             .load(currentItem.imageSrc)
             .into(holder.image)
         holder.title.text = currentItem.title
+        // Configura el clic en el elemento y pasa el id del manga al callback
+        holder.itemView.setOnClickListener {
+            onItemClick(currentItem.id) // Supongo que tienes un atributo `id` en `Manga`
+        }
     }
     private fun goToMangaInfo(){
 
@@ -35,9 +37,5 @@ class MangaAdapter (private val mangaList : ArrayList<Manga>) :
     class myViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val image : ImageView = itemView.findViewById(R.id.manga_img)
         val title : TextView = itemView.findViewById(R.id.manga_title)
-
-
     }
-
-
 }
