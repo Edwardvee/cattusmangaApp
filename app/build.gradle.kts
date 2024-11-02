@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.gridlayout)
     val fragment_version = "1.8.3"
 
     // Java language implementation

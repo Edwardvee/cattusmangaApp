@@ -32,12 +32,12 @@ class HomepageFragment : Fragment() {
 //
 //    private var param1: String? = null
 //    private var param2: String? = null
-private lateinit var newRecyclerView: RecyclerView
+    private lateinit var newRecyclerView: RecyclerView
     private lateinit var newArrayList: ArrayList<Manga>
-
     private lateinit var imageid: MutableList<String>
     private lateinit var mangasid: MutableList<Int>
     private lateinit var titlemanga: MutableList<String>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
