@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import android.util.Log
+import android.widget.TextView
 
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +38,7 @@ class HomepageFragment : Fragment() {
     private lateinit var imageid: MutableList<String>
     private lateinit var mangasid: MutableList<Int>
     private lateinit var titlemanga: MutableList<String>
-
+    public lateinit var session: Session
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -54,10 +55,12 @@ class HomepageFragment : Fragment() {
 
 
     }
+
     class DetailFragment : Fragment() {
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
+
 
             val mangaId = arguments?.getInt("mangaId") ?: 0
             // Usa mangaId para cargar los detalles desde la base de datos
@@ -79,12 +82,19 @@ class HomepageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var usernameText : TextView = requireView().findViewById(R.id.usernamewelcome)
+
+        //session = Session(this.requireContext())
+        //session.checkLogin()
+        //var user: HashMap<String, String> = session.getUserDetails()
+        //var username = user.get(Session.KEY_USERNAME)
+        //usernameText.setText(username)
         imageid = mutableListOf()
         titlemanga = mutableListOf()
         mangasid = mutableListOf()
         var queue = Volley.newRequestQueue(this.context)
         val url =
-            "http://10.120.0.118/quiroga/cattusmanga_plus/controllers/androidRequests/getMangas.php"
+            "http://192.168.1.7/cattusmanga_plus/controllers/androidRequests/getMangas.php"
         var jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             try {
                 val jsonArray = response.getJSONArray("data")
@@ -94,7 +104,7 @@ class HomepageFragment : Fragment() {
 
                     mangasid.add(jsonObject.getInt("ID"))
                     imageid.add(
-                        "http://10.120.0.118/quiroga/cattusmanga_plus/mangas/" + jsonObject.getString(
+                        "http://192.168.1.7/cattusmanga_plus/mangas/" + jsonObject.getString(
                             "ID"
                         ) + "/caratula.png"
                     )

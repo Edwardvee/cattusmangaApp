@@ -130,9 +130,6 @@
 
 
             </GridLayout>
-
-
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </FrameLayout>

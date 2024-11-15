@@ -23,9 +23,10 @@ class LoginFragment : Fragment() {
     private lateinit var etPassword: EditText
     private lateinit var btnLogin: Button
     private lateinit var requestQueue: RequestQueue
-
+    lateinit var session: Session
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        session = Session(this.requireContext())
 
     }
 
@@ -56,11 +57,12 @@ class LoginFragment : Fragment() {
             } else {
 
                 loginUser(username, password)
+
             }
         }
     }
     private fun loginUser(username: String, password: String) {
-        val url = "http://10.120.0.118/quiroga/cattusmanga_plus/controllers/androidRequests/login.php" // Cambia esta URL por la de tu servidor
+        val url = "http://192.168.1.7/cattusmanga_plus/controllers/androidRequests/login.php" // Cambia esta URL por la de tu servidor
         val params = JSONObject()
         params.put("username", username)
         params.put("password", password)
@@ -74,7 +76,11 @@ class LoginFragment : Fragment() {
 
                     if (status == "success") {
                         Toast.makeText(this.context, "Login Successful", Toast.LENGTH_SHORT).show()
-                        val username = response.getString("user")
+                        val id = response.getInt("ID")
+
+                        val username = response.getString("Name")
+                        session.createLoginSession(username, id.toString())
+                        Log.d("login", session.isLoggedIn().toString())
                         Toast.makeText(this.context, username, Toast.LENGTH_SHORT).show()
 
                     } else {
