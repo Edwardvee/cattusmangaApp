@@ -62,7 +62,7 @@ class LoginFragment : Fragment() {
         }
     }
     private fun loginUser(username: String, password: String) {
-        val url = "http://192.168.1.7/cattusmanga_plus/controllers/androidRequests/login.php" // Cambia esta URL por la de tu servidor
+        val url = "http://10.120.2.206/somnifero/cattusmanga_plus/controllers/androidRequests/login.php" // Cambia esta URL por la de tu servidor
         val params = JSONObject()
         params.put("username", username)
         params.put("password", password)

@@ -50,7 +50,7 @@ class search : Fragment() {
         g_ID = mutableListOf()
         var queue = Volley.newRequestQueue(this.context)
         val url =
-            "http://10.120.0.118/quiroga/cattusmanga_plus/controllers/androidRequests/getGenres.php"
+            "http://10.120.2.206/somnifero/cattusmanga_plus/controllers/androidRequests/getGenres.php"
         var jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             try {
                 val jsonArray = response.getJSONArray("data")
@@ -59,7 +59,7 @@ class search : Fragment() {
                     titleCategory.add(jsonObject.getString("Name"))
                     Log.d("pepe", jsonObject.getString("Name"))
                     imageid.add(
-                        "http://10.120.0.118/quiroga/cattusmanga_plus/mangas/" + jsonObject.getString(
+                        "http://10.120.2.206/somnifero/cattusmanga_plus/mangas/" + jsonObject.getString(
                             "image"
                         ) + "/caratula.png"
                     )

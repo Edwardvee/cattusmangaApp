@@ -94,7 +94,7 @@ class HomepageFragment : Fragment() {
         mangasid = mutableListOf()
         var queue = Volley.newRequestQueue(this.context)
         val url =
-            "http://192.168.1.7/cattusmanga_plus/controllers/androidRequests/getMangas.php"
+            "http://10.120.2.206/somnifero/cattusmanga_plus/controllers/androidRequests/getMangas.php"
         var jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null, { response ->
             try {
                 val jsonArray = response.getJSONArray("data")
@@ -104,7 +104,7 @@ class HomepageFragment : Fragment() {
 
                     mangasid.add(jsonObject.getInt("ID"))
                     imageid.add(
-                        "http://192.168.1.7/cattusmanga_plus/mangas/" + jsonObject.getString(
+                        "http://10.120.2.206/somnifero/cattusmanga_plus/mangas/" + jsonObject.getString(
                             "ID"
                         ) + "/caratula.png"
                     )
